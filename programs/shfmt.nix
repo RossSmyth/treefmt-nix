@@ -44,9 +44,11 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    settings.formatter.shfmt.options = lib.optionals (!isNull cfg.indent_size) [
-      "-i"
-      (toString cfg.indent_size)
-    ];
+    settings.formatter.shfmt = lib.optionalAttrs (!isNull cfg.indent_size) {
+      options = [
+        "-i"
+        (toString cfg.indent_size)
+      ];
+    };
   };
 }
